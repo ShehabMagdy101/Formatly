@@ -1,4 +1,7 @@
  # Extract and clean text from PDF
+import config
+chunk_size = config.CHUNK_SIZE
+chunk_overlap = config.CHUNK_OVERLAP
 
 def parse_pdf(pdf_path):
     import PyPDF2
@@ -11,7 +14,7 @@ def parse_pdf(pdf_path):
             num_pages = len(pdf_reader.pages)
             pages_text = []
             print(f"Total number of pages: {num_pages}")
-            for pages in tqdm(range(num_pages)):
+            for pages in tqdm(range(num_pages), "Extracting Text"):
                 page = pdf_reader.pages[pages]
                 text = page.extract_text()      
                 # print(f"Page {pages + 1}:\n{text}\n")
@@ -44,18 +47,20 @@ def clean_text(pages: list[str]) -> list[str]:
     
     return cleaned_pages
 
-def chunk_text(pages: list[str], chunk_size: int = 600, chunk_overlap: int = 50) -> list[str]:
+def chunk_text(pages: list[str], chunk_size: int = chunk_size, chunk_overlap: int = chunk_overlap) -> list[str]:
     from langchain.text_splitter import RecursiveCharacterTextSplitter
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
-        separators=['\n\n'])
+        separators=['\n\n\n','\n\n','\n'])
     chunks = []
     for text in pages:
         chunk = splitter.split_text(text)
         chunks.extend(chunk)
+    print("Text Chunks Created:" ,len(chunks), "\n")
+    import random
+    print(f'Sample Chunck:\n """{random.choice(chunks)}""" ')
     return chunks
-
 
 
 def process_pdf_to_chunks(pdf_path: str) -> list[str]:
