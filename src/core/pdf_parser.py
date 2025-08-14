@@ -2,6 +2,9 @@
 import config
 chunk_size = config.CHUNK_SIZE
 chunk_overlap = config.CHUNK_OVERLAP
+start_page = config.START_PAGE
+from colorama import init, Fore
+
 
 def parse_pdf(pdf_path):
     import PyPDF2
@@ -13,15 +16,16 @@ def parse_pdf(pdf_path):
             #get the number of pages in the PDF
             num_pages = len(pdf_reader.pages)
             pages_text = []
-            print(f"Total number of pages: {num_pages}")
-            for pages in tqdm(range(num_pages), "Extracting Text"):
+            print(f"Total number of pages:" ,num_pages)
+            for pages in tqdm(range(start_page ,num_pages),"Extracting Text"):
+                
                 page = pdf_reader.pages[pages]
                 text = page.extract_text()      
                 # print(f"Page {pages + 1}:\n{text}\n")
                 pages_text.append(text)
             return pages_text
     except Exception as e:
-        return f"Cannot open: {pdf_path} with error: {(e)}"
+        return Fore.RED +f"Cannot open: {pdf_path} with error: {(e)}"
 
 
 def clean_text(pages: list[str]) -> list[str]:
@@ -59,7 +63,8 @@ def chunk_text(pages: list[str], chunk_size: int = chunk_size, chunk_overlap: in
         chunks.extend(chunk)
     print("Text Chunks Created:" ,len(chunks), "\n")
     import random
-    print(f'Sample Chunck:\n """{random.choice(chunks)}""" ')
+    print(Fore.CYAN + f'Sample Chunck:')
+    print(f' """{random.choice(chunks)}""" \n')
     return chunks
 
 

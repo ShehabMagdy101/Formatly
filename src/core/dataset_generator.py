@@ -1,4 +1,4 @@
-# Turn book into Q/A/Explanation dataset
+# Turn pdf into Q/A/Explanation dataset
 
 import os
 import json
@@ -6,6 +6,11 @@ import config
 model = config.LOCAL_MODEL
 cooldown_iterations = config.COOLDOWN_ITERATIONS
 cooldown_time = config.COOLDOWN_TIME
+from colorama import Fore
+from core.formats import alpaca
+from core.formats import chatml
+from core.formats import sharegpt
+
 
 def generate_qa_explanation(text_chunk: str, is_api=False) -> dict:
     """
@@ -44,7 +49,6 @@ def api_generate(text_chunk):
         
     return qa_data
 
-
 def local_model_generate(text_chunk, model=model):
     from ollama import chat
     from ollama import ChatResponse
@@ -67,11 +71,13 @@ def local_model_generate(text_chunk, model=model):
             qa_data = json.loads(output_text)
             return qa_data   
         except json.JSONDecodeError as ex:
-            ValueError(f"Invalid JSON output: {ex}") 
+            ValueError(f"Invalid JSON output: {ex}")
+            qa_data = {"question": None, "answer": None, "explanation": None} 
     except Exception as e:
        raise RuntimeError(f"Local Model Error: {e}")         
 
-def create_dataset(texts: list[str], filename: str = "dataset.csv"):
+
+def create_dataset(texts: list[str], format='csv', filename: str = "dataset.csv"):
     """
     Generate Q/A/Explanation dataset from a list of text chunks and save as CSV.
     
@@ -85,7 +91,7 @@ def create_dataset(texts: list[str], filename: str = "dataset.csv"):
         file_path = os.path.join(BASE_DIR, "data", "processed", filename)
         
     except Exception as e:
-        return f"Cannot find folder path with error: {(e)}"
+        return Fore.RED+f"Cannot find folder path with error: {(e)}"
 
     import pandas as pd
     df = pd.DataFrame(columns=["question", "answer", "explanation"])
@@ -104,10 +110,10 @@ def create_dataset(texts: list[str], filename: str = "dataset.csv"):
             end = time.time()
             iteration_times.append(end - start)
 
-            if i == 10:
+            if i == 2:
                 avg_iter_time = sum(iteration_times) / len(iteration_times)
                 print(f"\nEstimated Time (min): {int(avg_iter_time * len(texts)/60)}")
-                choice = input("Do you want to continue ? (Y:N)")
+                choice = input(Fore.YELLOW+ "Do you want to continue ? (Y:N)")
                 if choice.lower() == "n":
                     break
                 
@@ -119,6 +125,15 @@ def create_dataset(texts: list[str], filename: str = "dataset.csv"):
             break
     if flag:
         print("Saving dataset...")
-        print(f"Dataset saved to: {file_path}")
+        print(Fore.GREEN+ f"CSV Dataset saved to: {file_path}")
+        df.dropna(subset=["question"], inplace=True)
         df.to_csv(file_path, index=False, encoding="utf-8")
+        if format=='chatml':
+            chatml(df)
+        elif format=='alpaca':
+            alpaca(df)
+        elif format=='sharegpt':
+            sharegpt(df)
+        else:
+            pass
     return df

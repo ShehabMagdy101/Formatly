@@ -4,7 +4,11 @@
 
 API_KEY = "AIzaSyAXI8qL-j1rB-6nUlbNNn5w724ka_pZFpE"
 PATH = r"C:\Users\sheha\Desktop\مكتبتي\Chip Huyen - AI Engineering-O'Reilly Media, Inc. (2024).pdf"
+
+START_PAGE = 21
+
 LOCAL_MODEL = 'llama3.2'
+
 PROMPT_TEMPLATE = """
 You are an assistant that creates educational datasets.
 Given the following text, generate:

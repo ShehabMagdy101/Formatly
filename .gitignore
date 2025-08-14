@@ -1,2 +1,5 @@
 venv/
 src/config.py
+/data/processed/
+/models/
+/__pycache__/
