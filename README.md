@@ -1,6 +1,6 @@
 # Formatly
 
-Formatly is an open-source tool for generating datasets tailored for fine-tuning large language models (LLMs) on domain-specific content.
+Formatly is an open-source tool for generating datasets with the preferred data formats tailored for fine-tuning large language models (LLMs) on domain-specific content.
 
 Instead of relying solely on expensive API calls or powerful cloud GPUs, Formatly leverages lightweight local models (e.g., LLaMA 3.2) to generate high-quality training samples. This approach significantly reduces compute and API costs while maintaining dataset quality.
 
