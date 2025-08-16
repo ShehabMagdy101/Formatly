@@ -13,14 +13,14 @@ Formatly optimizes local machine performance by:
 
 By default, Formatly generates Question–Answer–Explanation triplets for each text chunk, but supports multiple output formats for different fine-tuning frameworks.
 
-# Supported Formats
+## Supported Output Formats
 
 - CSV (generic)
-- Alpaca - Unsloth - llama3.2 - llama3.2
+- Alpaca (Unsloth - llama3.2 - llama3.1)
 - ShareGPT
 - ChatML
 
-# Architecture
+## Architecture
 
 
 ![alt text](image.png)
@@ -34,7 +34,7 @@ The architecture includes:
 - **Fine-tuning Export** → Prepares ready-to-use datasets for cloud fine-tuning
 
 
-# Installation
+## Installation
 
 
 Install and Setup Ollama from (here)[https://ollama.com/]
@@ -66,7 +66,7 @@ Install dependencies:
 ```
 pip install -r requirements.txt
 ```
-# How to Generate a Dataset using local model (llama3.2)
+## How to Generate a Dataset using local model (llama3.2)
 ---
 
 
