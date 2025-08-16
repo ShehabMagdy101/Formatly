@@ -1,5 +1,5 @@
 # Formatly
----
+
 Formatly is an open-source tool for generating datasets tailored for fine-tuning large language models (LLMs) on domain-specific content.
 
 Instead of relying solely on expensive API calls or powerful cloud GPUs, Formatly leverages lightweight local models (e.g., LLaMA 3.2) to generate high-quality training samples. This approach significantly reduces compute and API costs while maintaining dataset quality.
@@ -14,14 +14,14 @@ Formatly optimizes local machine performance by:
 By default, Formatly generates Question–Answer–Explanation triplets for each text chunk, but supports multiple output formats for different fine-tuning frameworks.
 
 # Supported Formats
----
+
 - CSV (generic)
 - Alpaca - Unsloth - llama3.2 - llama3.2
 - ShareGPT
 - ChatML
 
 # Architecture
----
+
 
 ![alt text](image.png)
 
@@ -35,7 +35,7 @@ The architecture includes:
 
 
 # Installation
----
+
 
 Install and Setup Ollama from (here)[https://ollama.com/]
 
