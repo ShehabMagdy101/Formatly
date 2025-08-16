@@ -21,12 +21,7 @@ def main():
         default="csv",
         help="Output fromat: csv, jsonl, or openai"
     )
-    parser.add_argument(
-        "--output",
-        type=str,
-        default="dataset.csv",
-        help="Output file name"
-    )
+   
     args = parser.parse_args()
 
     print(Fore.BLUE+ r""" 
@@ -41,7 +36,7 @@ def main():
     chunks = process_pdf_to_chunks(args.pdf)
 
     # generate dataset with the right format
-    df = create_dataset(chunks, format=args.format ,filename=args.output)  
+    df = create_dataset(chunks, format=args.format)  
     
         
 

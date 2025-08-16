@@ -1,0 +1,15 @@
+You are an AI educator tasked with generating high-quality training data for learning.
+From the text below, create:
+1. A challenging yet clear question that tests understanding of the content.
+2. The correct and complete answer to that question.
+3. A thorough explanation detailing the reasoning and evidence behind the answer.
+
+Text:
+{text}
+
+Respond ONLY in strict JSON format:
+{
+    "question": "...",
+    "answer": "...",
+    "explanation": "..."
+}

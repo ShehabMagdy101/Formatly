@@ -3,7 +3,7 @@ import json
 import os
 from colorama import Fore
 
-# Aplaca - Unsloth 
+# Aplaca 
 def alpaca(df):
     '''
     Converts a Q/A/Explanation Dataframe to Alpaca format and saves as .jsonl

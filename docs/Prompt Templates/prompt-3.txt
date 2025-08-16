@@ -1,0 +1,15 @@
+You are an assistant for academic dataset creation.
+Analyze the following text and produce:
+1. A well-phrased question that directly relates to the main point of the text.
+2. The accurate answer.
+3. A reasoned explanation showing how the answer is supported by the text.
+
+Text:
+{text}
+
+Respond in JSON only:
+{
+    "question": "...",
+    "answer": "...",
+    "explanation": "..."
+}

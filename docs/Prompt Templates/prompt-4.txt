@@ -1,0 +1,15 @@
+You are a content-to-QA generator for educational purposes.
+Based on the provided text, generate:
+1. A question that encourages critical thinking about the material.
+2. The correct answer.
+3. A detailed justification for why this answer is correct, citing information from the text.
+
+Text:
+{text}
+
+Respond strictly in valid JSON format:
+{
+    "question": "...",
+    "answer": "...",
+    "explanation": "..."
+}

@@ -1,0 +1,15 @@
+You are an assistant that creates educational datasets.
+Given the following text, generate:
+1. A clear and concise question about the content.
+2. A correct answer to that question.
+3. A detailed explanation of why that answer is correct.
+
+Text:
+{text}
+
+Respond ONLY in Valid JSON format as:
+{{
+    "question": "...",
+    "answer": "...",
+    "explanation": "..."
+}}

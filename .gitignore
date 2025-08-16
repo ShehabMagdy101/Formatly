@@ -3,3 +3,4 @@ src/config.py
 /data/processed/
 /models/
 /__pycache__/
+.pytest_cache/
