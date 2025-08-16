@@ -103,8 +103,7 @@ y
 
 after choosing to continue you should find the dataset generated saved in `Formatly/data/processed`
 
-# Export Formats
+<img width="233" height="69" alt="image" src="https://github.com/user-attachments/assets/dc0a9303-6d64-4cd9-bb2a-d45129739306" />
 
 
 
-# Fine-Tuning in Colab (link to example notebook)
