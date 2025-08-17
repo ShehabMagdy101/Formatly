@@ -110,7 +110,7 @@ After generatating 10 data points Formalty will calculate the estimated time req
 FormatLy will show you a sample text chunk for user review <br>
 FormatLy will ask you if you want to continue or discard operation for more manual edits in `config.py`
 
-![alt text](docs/images/image-2.png))
+![alt text](docs/images/image-2.png)
 
 
 after choosing to continue you should find the dataset generated saved in `Formatly/data/processed`
