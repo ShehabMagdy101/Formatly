@@ -3,7 +3,11 @@
 # Output formatting options
 
 API_KEY = ""
+<<<<<<< HEAD
 PATH = r""
+=======
+PATH = r"C:\Users\sheha\Desktop\مكتبتي\Chip Huyen - AI Engineering-O'Reilly Media, Inc. (2024).pdf"
+>>>>>>> 8555528b5844210ef949d7a9a482e8dd489c132d
 
 START_PAGE = 21
 
@@ -38,6 +42,9 @@ CHUNK_OVERLAP = 50
 COOLDOWN = True
 COOLDOWN_ITERATIONS = 100
 COOLDOWN_TIME = 10
+<<<<<<< HEAD
 
 
 MAX_TEMP = 80 
+=======
+>>>>>>> 8555528b5844210ef949d7a9a482e8dd489c132d
