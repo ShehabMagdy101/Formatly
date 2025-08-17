@@ -111,7 +111,8 @@ FormatLy will ask you if you want to continue or discard operation for more manu
 
 
 after choosing to continue you should find the dataset generated saved in `Formatly/data/processed`
-
+<br>
+For more information and examples check `Docs`
 
 
 
