@@ -1,3 +1,6 @@
+<img width="1456" height="591" alt="image" src="https://github.com/user-attachments/assets/c8c873d9-4c04-4f27-bbb9-ce41d4d0d9d7" />
+
+
 # FormatLy
 
 FormatLy is an open-source tool for generating datasets with the preferred data formats tailored for fine-tuning large language models (LLMs) on domain-specific content.
@@ -30,7 +33,7 @@ By default, Formatly generates Question–Answer–Explanation triplets for each
 ## Architecture
 
 
-![alt text](image.png)
+![alt text](docs/images/image.png)
 
 The architecture includes:
 
@@ -101,17 +104,18 @@ Run the `main.py` with the path to your PDF and the prefered data format (defaul
 ```
 python main.py --pdf "path/to/your/document.pdf" --format csv
 ```
-![alt text](image-1.png)
+![alt text](docs/images/image-1.png)
 
 After generatating 10 data points Formalty will calculate the estimated time required to finish all generated data in minutes <br>
 FormatLy will show you a sample text chunk for user review <br>
 FormatLy will ask you if you want to continue or discard operation for more manual edits in `config.py`
 
-![alt text](image-2.png)
+![alt text](docs/images/image-2.png))
 
 
 after choosing to continue you should find the dataset generated saved in `Formatly/data/processed`
-
+<br>
+For more information and examples check `Docs`
 
 
 
