@@ -2,12 +2,17 @@
 # User preferences and defaults
 # Output formatting options
 
-API_KEY = "AIzaSyAXI8qL-j1rB-6nUlbNNn5w724ka_pZFpE"
-PATH = r"C:\Users\sheha\Desktop\مكتبتي\Chip Huyen - AI Engineering-O'Reilly Media, Inc. (2024).pdf"
+API_KEY = ""
+PATH = r""
 
 START_PAGE = 21
 
 LOCAL_MODEL = 'llama3.2'
+TEMPERATURE = 0.7
+TOP_P = 0.9
+NUM_CTX = 1024
+NUM_PREDICT = 256
+NUM_THREADS = 4
 
 PROMPT_TEMPLATE = """
 You are an assistant that creates educational datasets.
@@ -33,3 +38,6 @@ CHUNK_OVERLAP = 50
 COOLDOWN = True
 COOLDOWN_ITERATIONS = 100
 COOLDOWN_TIME = 10
+
+
+MAX_TEMP = 80 

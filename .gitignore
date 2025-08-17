@@ -5,3 +5,4 @@ src/config.py
 /__pycache__/
 .pytest_cache/
 src/tests
+src/__pycache__

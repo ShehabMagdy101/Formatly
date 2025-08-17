@@ -6,6 +6,12 @@ import config
 model = config.LOCAL_MODEL
 cooldown_iterations = config.COOLDOWN_ITERATIONS
 cooldown_time = config.COOLDOWN_TIME
+max_temp = config.MAX_TEMP
+temperature = config.TEMPERATURE
+top_p = config.TOP_P
+num_ctx = config.NUM_CTX
+num_predict = config.NUM_PREDICT
+num_thread = config.NUM_THREADS
 from colorama import Fore
 from core.formats import alpaca
 from core.formats import chatml
@@ -59,11 +65,11 @@ def local_model_generate(text_chunk, model=model):
             model=model,
             messages=[{'role': 'user','content': prompt}],
             options={
-                'temperature': 0.7,
-                'top_p': 0.9,
-                'num_ctx': 1024,  # Reduced context window
-                'num_predict': 256,  # Limit response length
-                'num_thread': 4,  # Limit CPU threads
+                'temperature': temperature,
+                'top_p':top_p,
+                'num_ctx': num_ctx,
+                'num_predict': num_predict,  
+                'num_thread': num_thread, 
             }
         )
         output_text = response['message']['content'] 
@@ -86,7 +92,6 @@ def create_dataset(texts: list[str], format='csv', filename: str = "dataset.csv"
         filename (str): Name of the output CSV file (default 'dataset.csv').
     """
     try:
-        
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         file_path = os.path.join(BASE_DIR, "data", "processed", filename)
         
@@ -98,27 +103,36 @@ def create_dataset(texts: list[str], format='csv', filename: str = "dataset.csv"
    
     from tqdm import tqdm
     import time
+    import keyboard
     flag = True
     iteration_times = []
-    data = range(100, 120)
-    for i, text in enumerate(tqdm(data, desc="Generating Q&A")):
+    data = range(0, len(texts))
+    pbar = tqdm(data, desc="Generating Q&A") 
+    for i, text in enumerate(pbar):
         try:
+            if keyboard.is_pressed("q"):  
+                print(Fore.YELLOW + "\nDetected 'q' press → Saving and exiting early...")
+                flag = True
+                break
             start = time.time()
+            check_gpu(pbar)
             json_data = generate_qa_explanation(texts[text])
             row = pd.DataFrame([json_data])
             df = pd.concat([df, row], ignore_index=True)
             end = time.time()
             iteration_times.append(end - start)
 
-            if i == 2:
+            if i == 100:
                 avg_iter_time = sum(iteration_times) / len(iteration_times)
-                print(f"\nEstimated Time (min): {int(avg_iter_time * len(texts)/60)}")
+                print(f"\nEstimated Time (min): {int((avg_iter_time * len(texts) + (len(texts) / cooldown_iterations) * cooldown_time) / 60)}")
                 choice = input(Fore.YELLOW+ "Do you want to continue ? (Y:N)")
                 if choice.lower() == "n":
                     break
                 
-            if i == cooldown_iterations and config.COOLDOWN == True:
-                time.wait(cooldown_time)
+            if i % cooldown_iterations == 0 and i != 0 and config.COOLDOWN:
+                print(f"System is in Cool Down Mode for {cooldown_time} sec")
+                time.sleep(cooldown_time)  
+                
         except Exception as e:
             tqdm.write(f"Error: {e}")
             flag = False
@@ -137,3 +151,31 @@ def create_dataset(texts: list[str], format='csv', filename: str = "dataset.csv"
         else:
             pass
     return df
+
+
+def check_gpu(pbar):
+    import sys
+    from tqdm import tqdm
+    try:
+        import pynvml
+        pynvml.nvmlInit()
+        handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+    except Exception as e:
+        print(Fore.RED + f"GPU monitoring not available: {e}")
+        handle = None
+
+    if handle is None:
+        return
+    
+    temp = pynvml.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
+    util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
+    
+    pbar.set_postfix_str(f"GPU Temp: {temp}°C | Util: {util}%")
+
+    if temp >= max_temp:
+        tqdm.write(Fore.RED + f"\nCRITICAL: GPU temperature reached {temp}°C. Stopping run!")
+        sys.exit(1)
+
+
+def plot_gpu(gpu, util, iters):
+    pass

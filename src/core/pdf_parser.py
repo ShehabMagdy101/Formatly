@@ -1,4 +1,4 @@
- # Extract and clean text from PDF
+# Extract and clean text from PDF
 import config
 chunk_size = config.CHUNK_SIZE
 chunk_overlap = config.CHUNK_OVERLAP
