@@ -1,3 +1,6 @@
+<img width="1456" height="591" alt="image" src="https://github.com/user-attachments/assets/c8c873d9-4c04-4f27-bbb9-ce41d4d0d9d7" />
+
+
 # FormatLy
 
 FormatLy is an open-source tool for generating datasets with the preferred data formats tailored for fine-tuning large language models (LLMs) on domain-specific content.
